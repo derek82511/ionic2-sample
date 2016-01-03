@@ -1,0 +1,17 @@
+<ion-navbar *navbar>
+    <!--<button menuToggle *ngIf="!selectedItem">
+        <icon menu></icon>
+        </button>-->
+    <ion-title>Item Details</ion-title>
+</ion-navbar>
+
+<ion-content>
+    <div *ngIf="selectedItem" class="selection">
+        <b>{{selectedItem.title}}</b>
+        <icon role="img" class="{{selectedItem.icon}}"></icon>
+        <div>
+            You navigated here from <b>{{selectedItem.title}}</b>
+        </div>
+        <button (click)="goBack($event)">Go Back</button>
+    </div>
+</ion-content>
