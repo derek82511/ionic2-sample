@@ -1,18 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Ionic</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ionic</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <link ios-href="build/css/app.ios.css" rel="stylesheet">
-  <link md-href="build/css/app.md.css" rel="stylesheet">
+    <link ios-href="build/css/app.ios.css" rel="stylesheet">
+    <link md-href="build/css/app.md.css" rel="stylesheet">
+
+    <script src="cordova.js"></script>
+
+    <script src="build/js/moment.js"></script>
+
+    <script type="text/javascript">
+        if(!window.indexedDB){
+            //alert('use indexeddbshim');
+            document.write("<script src='build/js/indexeddbshim.min.js'><\/script>");
+        }
+    </script>
+
+    <script src="build/js/Dexie.js"></script>
 </head>
+
 <body>
-
-  <ion-app></ion-app>
-
-  <script src="cordova.js"></script>
-  <script src="build/js/app.bundle.js"></script>
+    <ion-app></ion-app>
+    
+    <!--
+    <script type="text/javascript">
+        window.onerror = function(message, url, lineNumber) {
+            alert("Error: "+message+" in "+url+" at line "+lineNumber);
+        }
+    </script>-->
+    <script src="build/js/app.bundle.js"></script>
 </body>
+
 </html>

@@ -6,40 +6,27 @@ export class DBManager {
     constructor() {
         var self = this;
 
-        db.open({
-            server: 'Practice_indexedDB',
-            version: 1,
-            schema: {
-                user: {
-                    key: {keyPath: 'id'},
-                    // Optionally add indexes
-                    indexes: {
-                        firstName: {},
-                        lastName: {}
-                    }
-                },
-                movie: {
-                    key: {keyPath: 'id'}
-                }
-            }
-        }).then(function (s) {
-            var server = s;
+        var db = new Dexie('Practice_indexedDB');
 
-            /* User */
+        db.version(1)
+        .stores({
+            user: 'id',
+            movie: 'id'
+        });
+
+        db.open().then(function(){
+            //alert('Dexie success');
+
+            //User 
             var users = {};
-            server.user.query()
-                .all()
-                .execute()
-                .then(function (results) {
-                    for(var key in results){
-                        users[results[key].id] = results[key];
-                    }
-                });
+            db.user.toCollection().each(function(user) {
+                users[user.id] = user;
+            });
             self.User = {
                 add: function(user){
                     if(!users[user.id]){
                         users[user.id] = user;
-                        server.user.add(user).then(function (item) {
+                        db.user.add(user).then(function (item) {
                             // item stored
                         });
                     }
@@ -49,21 +36,16 @@ export class DBManager {
                 }
             };
 
-            /* Movie */
+            //Movie
             var movies = {};
-            server.movie.query()
-                .all()
-                .execute()
-                .then(function (results) {
-                    for(var key in results){
-                        movies[results[key].id] = results[key];
-                    }
-                });
+            db.movie.toCollection().each(function(movie) {
+                movies[movie.id] = movie;
+            });
             self.Movie = {
                 add: function(movie){
                     if(!movies[movie.id]){
                         movies[movie.id] = movie;
-                        server.movie.add(movie).then(function (item) {
+                        db.movie.add(movie).then(function (item) {
                             // item stored
                         });
                     }
@@ -72,8 +54,11 @@ export class DBManager {
                     return movies;
                 }
             };
-            
+        })
+        .catch(function(error){
+            //alert('Uh oh : ' + error);
         });
+
     }
 
 }

@@ -35,6 +35,7 @@ class MyApp {
 
         localStorage.userName = 'Derek';
 
+
         //static db data
         setTimeout(function() {
             var user1 = {
